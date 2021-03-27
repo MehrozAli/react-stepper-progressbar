@@ -16,7 +16,8 @@ function App() {
   const handleClick = (type) => {
     let newStep = currentStep;
     type === "Next" ? newStep++ : newStep--;
-    setCurrentStep(newStep);
+
+    if (newStep > 0 && newStep <= 4) setCurrentStep(newStep);
   };
 
   return (
