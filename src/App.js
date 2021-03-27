@@ -1,24 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./app.css";
+import Stepper from "./Stepper";
 
 function App() {
+  const [currentStep, setCurrentStep] = useState(1);
+
+  const stepsArr = [
+    "Create an Account",
+    "Add Personal Data",
+    "Add Payment",
+    "Submit Application",
+  ];
+
+  const direction = "horizontal";
+  const handleClick = (type) => {
+    let newStep = currentStep;
+    type === "Next" ? newStep++ : newStep--;
+    setCurrentStep(newStep);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className={`stepper-container-${direction}`}>
+        <Stepper
+          steps={stepsArr}
+          direction={direction}
+          currentStep={currentStep}
+        />
+      </div>
+
+      <div className="buttons-container">
+        <button onClick={() => handleClick()}>Previous</button>
+        <button onClick={() => handleClick("Next")}>Next</button>
+      </div>
+    </>
   );
 }
 
